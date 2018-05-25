@@ -13,13 +13,31 @@ window.onload = () => {
       // Game has ended
       if (res[0]) {
         if (res[1]) document.getElementById('messageBox').getElementsByTagName('p')[0].innerHTML = 'You won !';
-        else document.getElementById('messageBox').getElementsByTagName('p')[0].innerHTML = 'You lost !';
+        else document.getElementById('messageBox').getElementsByTagName('p')[0].innerHTML = 'You lost ! The answer was '+game.pegSet.toString();
       }
     } catch (e) {
       document.getElementById('messageBox').getElementsByTagName('p')[0].innerHTML = e;
     }
   });
 };
+
+// Functions to manage the Drag & Drop UI
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("classes", ev.target.className);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("classes");
+    ev.target.className = data;
+}
+
+// Validating function
 
 const validInput = (upperLimit) => {
   let pegs = document.getElementById('userGuess').getElementsByTagName('input');
@@ -35,6 +53,8 @@ const validInput = (upperLimit) => {
 
   }
 };
+
+// Game Object
 
 class Mastermind {
 
@@ -52,7 +72,7 @@ class Mastermind {
 
   generatePegSet() {
     for(let i = 0; i < 4; i++) {
-      let idColor = Math.floor(Math.random()*5);
+      let idColor = Math.floor(Math.random()*6);
       this.pegSet.push(idColor);
     }
     console.log('PegSet generated: '+this.pegSet);
