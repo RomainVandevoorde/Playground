@@ -13,15 +13,15 @@ main {
   border-bottom:1px solid black;
 }
 
-.peg, .correct, .correctColor {
+#guessesContainer .peg, .correct, .correctColor {
   flex: 1;
   line-height: 40px;
   text-align: center;
 }
 
-.peg {
+/* .peg {
   background-color: lightblue;
-}
+} */
 
 .correct {
   background-color: lightgreen;
@@ -38,4 +38,55 @@ main {
 #userGuess .peg input {
   width: 100%;
   box-sizing: border-box;
+}
+
+#ui, #pegBox {
+  width: 600px;
+  margin: 0 auto;
+}
+
+#ui {
+  display: flex;
+  height:60px;
+}
+
+.pegContainer {
+  flex: 1;
+  background-color: grey;
+  box-sizing: border-box;
+  border: 1px solid black;
+  display: flex;
+}
+
+.emptyPeg {
+  background-color: #fff;
+}
+
+#ui .control {
+  flex: 2;
+  background-color: lightblue;
+}
+
+.peg {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  margin: auto;
+  border:1px solid grey;
+}
+
+#pegBox {
+  display: flex;
+}
+
+.pegColor1 {
+  background-color: yellow;
+}
+
+.pegColor2 {
+  background-color: red;
+}
+
+.pegColor3 {
+  background-color: green;
 }
