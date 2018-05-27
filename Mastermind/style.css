@@ -1,22 +1,40 @@
 body {
-  background-color: grey;
+  background-color: white;
 }
 
 main {
   max-width: 600px;
   margin: 0 auto;
+  background-color: #e8e8e8;
+  border: 1px solid #c1c1c1;
 }
 
-.row {
+#guesses .row {
   display: flex;
   min-height: 40px;
-  border-bottom:1px solid black;
+  border-bottom:1px solid #c1c1c1;
 }
 
-#guessesContainer .peg, .correct, .correctColor {
+#guesses .peg-container {
   flex: 1;
   line-height: 40px;
   text-align: center;
+}
+
+#guesses .tips-container {
+  flex: 2;
+  line-height: 40px;
+  text-align: center;
+  border-left: 1px solid #c1c1c1;
+  display: flex;
+    box-sizing: border-box;
+}
+
+#guesses .tip {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  margin: auto;
 }
 
 /* .peg {
@@ -40,7 +58,7 @@ main {
   box-sizing: border-box;
 }
 
-#ui, #pegBox {
+#ui {
   width: 600px;
   margin: 0 auto;
 }
@@ -50,16 +68,17 @@ main {
   height:60px;
 }
 
-.pegContainer {
+.peg-container {
   flex: 1;
-  background-color: grey;
+  /* background-color: grey; */
   box-sizing: border-box;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
 }
 
-.emptyPeg {
+#user-guess .empty-peg {
   background-color: #fff;
+  box-shadow: inset 1px 1px 4px 1px rgba(0,0,0,0.34);
 }
 
 #ui .control {
@@ -72,21 +91,76 @@ main {
   height: 30px;
   border-radius: 30px;
   margin: auto;
-  border:1px solid grey;
 }
 
 #pegBox {
   display: flex;
+  width: 66.66%;
+  height: 60px;
 }
 
 .pegColor1 {
-  background-color: yellow;
+  background-color: #d34734;
 }
 
 .pegColor2 {
-  background-color: red;
+  background-color: #f7a33d;
 }
 
 .pegColor3 {
-  background-color: green;
+  background-color: #6f6193;
+}
+
+.pegColor4 {
+  background-color: #47b1c1;
+}
+
+.pegColor5 {
+  background-color: #4ad65b;
+}
+
+.pegColor6 {
+  background-color: #f7d945;
+}
+
+.pegColor1, .pegColor2, .pegColor3, .pegColor4, .pegColor5, .pegColor6 {
+  box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.42);
+  border: 1px solid rgba(0,0,0,0.20);
+}
+
+#user-guess {
+  display: flex;
+  height: 60px;
+  border-bottom: 1px solid #c1c1c1;
+}
+
+#user-guess .peg-container {
+  flex: 1;
+}
+
+#user-guess .peg {
+  margin: auto;
+}
+
+#user-guess .actions-container {
+  box-sizing: border-box;
+  flex: 2;
+  border-left: 1px solid #c1c1c1;
+}
+
+.actions-container button {
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  font-size: 1.4em;
+}
+
+.tip-match {
+  background-color: black;
+  border: 1px solid rgba(0,0,0,0.20);
+}
+
+.tip-partial {
+  background-color: white;
+  border: 1px solid rgba(0,0,0,0.20);
 }

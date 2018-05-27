@@ -1,24 +1,63 @@
 window.onload = () => {
 
+  // Make pegs in the box draggable
+  let draggablePegs = document.getElementById('pegBox').getElementsByClassName('peg');
+
+  for (let i = 0; i < draggablePegs.length; i++) {
+    draggablePegs[i].draggable = true;
+    draggablePegs[i].addEventListener('dragstart', function(e){drag(e);});
+  }
+
+  // Enable dropping in the peg choice zones
+  let dropZone = document.getElementById('user-guess').getElementsByClassName('peg');
+
+  for (let i = 0; i < dropZone.length; i++) {
+    dropZone[i].addEventListener('dragover', function(e){allowDrop(e);});
+    dropZone[i].addEventListener('drop', function(e){drop(e);});
+  }
+
   let game = new Mastermind();
 
-  let controlButton = document.getElementsByTagName('button')[0];
-  controlButton.addEventListener('click', function(){
-    try {
-      // Invalid input, do nothing
-      // if(!validInput(game.colors.length-1)) return;
+  //
 
-      let res = game.newGuess();
-      console.log(res);
-      // Game has ended
-      if (res[0]) {
-        if (res[1]) document.getElementById('messageBox').getElementsByTagName('p')[0].innerHTML = 'You won !';
-        else document.getElementById('messageBox').getElementsByTagName('p')[0].innerHTML = 'You lost ! The answer was '+game.pegSet.toString();
+  let guessButton = document.getElementById('user-guess').getElementsByTagName('button')[0];
+  let messageBox = document.getElementById('messageBox').getElementsByTagName('p')[0];
+
+  guessButton.addEventListener('click', function(){
+    let pegsGuess = [];
+    for (let i = 0; i < dropZone.length; i++) {
+      pegsGuess.push(parseInt(dropZone[i].classList.item(1).substring(8))-1);
+    }
+    console.log(pegsGuess);
+    let res = game.mainLoop(pegsGuess);
+    if (res[0]) {
+      if (res[1]) messageBox.innerHTML = 'You won !';
+      else {
+        messageBox.innerHTML = 'You lost ! The answer was '+game.pegSet.toString()+"<br>";
+        for (let i = 0; i < 4; i++) {
+          messageBox.innerHTML += '<div class="peg pegColor'+(game.pegSet[i]+1)+'"></div>';
+        }
       }
-    } catch (e) {
-      document.getElementById('messageBox').getElementsByTagName('p')[0].innerHTML = e;
     }
   });
+
+  // let controlButton = document.getElementsByTagName('button')[0];
+  // controlButton.addEventListener('click', function(){
+  //   try {
+  //     // Invalid input, do nothing
+  //     // if(!validInput(game.colors.length-1)) return;
+  //
+  //     let res = game.newGuess();
+  //     console.log(res);
+  //     // Game has ended
+  //     if (res[0]) {
+  //       if (res[1]) document.getElementById('messageBox').getElementsByTagName('p')[0].innerHTML = 'You won !';
+  //       else document.getElementById('messageBox').getElementsByTagName('p')[0].innerHTML = 'You lost ! The answer was '+game.pegSet.toString();
+  //     }
+  //   } catch (e) {
+  //     document.getElementById('messageBox').getElementsByTagName('p')[0].innerHTML = e;
+  //   }
+  // });
 };
 
 // Functions to manage the Drag & Drop UI
@@ -67,7 +106,7 @@ class Mastermind {
 
     this.generatePegSet();
 
-    this.guessesContainer = document.getElementById('guessesContainer');
+    this.guessesContainer = document.getElementById('guesses');
   }
 
   generatePegSet() {
@@ -99,6 +138,28 @@ class Mastermind {
     document.getElementById('messageBox').getElementsByTagName('p')[0].innerHTML = "";
     this.getNewGuess();
     this.putCurrentGuessInUI();
+    let botTips = this.getBotTips();
+    this.putTipsInUI(botTips);
+
+    if(botTips[0] === 4) return [true, true];
+    if(this.guessNb >= 10) return [true, false];
+
+    this.guessNb++;
+
+    return [false, false];
+  }
+
+  mainLoop(guess) {
+    // Check data validity
+    for (let i = 0; i < guess.length; i++) {
+      if(!Number.isInteger(guess[i])) return [];
+    }
+
+    // Fill UI with new guess
+    this.currentGuess = guess;
+    this.putCurrentGuessInUI();
+
+    // Calculate bot tips and put them in the UI
     let botTips = this.getBotTips();
     this.putTipsInUI(botTips);
 
@@ -151,18 +212,31 @@ class Mastermind {
 
   // Puts the current guess on the gameboard
   putCurrentGuessInUI() {
+    console.log('putCurrentGuessInUI');
     let pegs = this.guessesContainer.getElementsByClassName('row')[this.guessNb-1].getElementsByClassName('peg');
     for(let i = 0; i < pegs.length; i++) {
-      pegs[i].innerHTML = this.currentGuess[i];
+      pegs[i].className = "peg pegColor"+(this.currentGuess[i]+1);
     }
   }
 
   putTipsInUI(tips) {
+
+    let nbMatch = tips[0];
+    let nbPartial = tips[1];
+
     let row = this.guessesContainer.getElementsByClassName('row')[this.guessNb-1];
-    let correctBlock = row.getElementsByClassName('correct')[0];
-    let correctColorBlock = row.getElementsByClassName('correctColor')[0];
-    correctBlock.innerHTML = tips[0];
-    correctColorBlock.innerHTML = tips[1];
+    let tipPegs = row.getElementsByClassName('tip');
+
+    for (let i = 0; i < tipPegs.length; i++) {
+      if(nbMatch > 0) {
+        tipPegs[i].className = "tip tip-match";
+        nbMatch--;
+      }
+      else if (nbPartial > 0) {
+        tipPegs[i].className = "tip tip-partial";
+        nbPartial--;
+      }
+    }
   }
 
 }
