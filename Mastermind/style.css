@@ -37,37 +37,6 @@ main {
   margin: auto;
 }
 
-/* .peg {
-  background-color: lightblue;
-} */
-
-.correct {
-  background-color: lightgreen;
-}
-
-.correctColor {
-  background-color: yellow;
-}
-
-#userGuess .control {
-  flex: 2;
-}
-
-#userGuess .peg input {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-#ui {
-  width: 600px;
-  margin: 0 auto;
-}
-
-#ui {
-  display: flex;
-  height:60px;
-}
-
 .peg-container {
   flex: 1;
   /* background-color: grey; */
@@ -79,11 +48,6 @@ main {
 #user-guess .empty-peg {
   background-color: #fff;
   box-shadow: inset 1px 1px 4px 1px rgba(0,0,0,0.34);
-}
-
-#ui .control {
-  flex: 2;
-  background-color: lightblue;
 }
 
 .peg {
@@ -163,4 +127,9 @@ main {
 .tip-partial {
   background-color: white;
   border: 1px solid rgba(0,0,0,0.20);
+}
+
+#messageBox p {
+  margin: 0;
+  padding: 12px;
 }

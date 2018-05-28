@@ -79,23 +79,6 @@ function drop(ev) {
     ev.target.className = data;
 }
 
-// Validating function
-
-const validInput = (upperLimit) => {
-  let pegs = document.getElementById('userGuess').getElementsByTagName('input');
-  for(let i = 0; i < pegs.length; i++) {
-
-    // Check if input is a valid integer
-    let value = parseInt(pegs[i].value);
-    if(!Number.isInteger(value)) return false;
-
-    // Check if integer is within limits
-    if(value >= 0 && value <= upperLimit) this.currentGuess.push(value);
-    else return false;
-
-  }
-};
-
 // Game Object
 
 class Mastermind {
@@ -104,8 +87,6 @@ class Mastermind {
     this.guessNb = 1; // Keeps track of the number of guesses
     this.currentGuess = []; // Will contain user's guesses
     this.pegSet = [];
-
-    this.colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple'];
 
     this.generatePegSet();
 
