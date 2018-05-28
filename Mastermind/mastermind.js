@@ -24,11 +24,11 @@ window.onload = () => {
   let messageBox = document.getElementById('messageBox').getElementsByTagName('p')[0];
 
   guessButton.addEventListener('click', function(){
-    let pegsGuess = [];
+    try {
+      let pegsGuess = [];
     for (let i = 0; i < dropZone.length; i++) {
       pegsGuess.push(parseInt(dropZone[i].classList.item(1).substring(8))-1);
     }
-    console.log(pegsGuess);
     let res = game.mainLoop(pegsGuess);
     if (res[0]) {
       if (res[1]) messageBox.innerHTML = 'You won !';
@@ -39,6 +39,9 @@ window.onload = () => {
         }
       }
     }
+  } catch(e){
+    messageBox.innerHTML = e;
+  }
   });
 
   // let controlButton = document.getElementsByTagName('button')[0];
@@ -150,6 +153,9 @@ class Mastermind {
   }
 
   mainLoop(guess) {
+    // Clear the message pegBox
+    document.getElementById('messageBox').getElementsByTagName('p')[0].innerHTML = "";
+
     // Check data validity
     for (let i = 0; i < guess.length; i++) {
       if(!Number.isInteger(guess[i])) return [];
