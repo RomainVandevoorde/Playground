@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script type="text/javascript">
+  window.onload = () => {
+
+    // let prom = () => new Promise(resolve => getMedia(resolve));
+    //
+    // prom().then(log).catch();
+
+
+    // const promise = getMediaStream();
+    // promise.then(successCallback, failureCallback)
+    // .catch(exceptionCallback);
+
+    testProm().then(successCallback, failureCallback);
+
+  }
+
+  let testProm = () => {
+    return new Promise((resolve, reject) => {
+      console.log('test1');
+      reject();
+      console.log('test2');
+    });
+  }
+
+successCallback = (val) => {
+  console.log('success');
+  console.log(val);
+}
+
+failureCallback = (val) => {
+  console.log('fail');
+  // if(val.name == 'TypeError') {
+  //   console.log(val.name);
+  //   console.log(val.message);
+  //   console.log(val.toString());
+  // } else {
+    console.log(val);
+    console.log((val.name == 'NotAllowedError')? "Not allowed": "Autre");
+  // }
+}
+
+exceptionCallback = (e) => {
+  console.log(e.name);
+  console.log(e.message);
+  console.log(e.toString());
+}
+
+
+  let getMediaStream = () => {
+    return new Promise((resolve, reject) => {
+      // try {
+          // monkeypatch getUserMedia
+          navigator.getUserMedia =
+            navigator.getUserMedia ||
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia;
+
+          // ask for an audio input
+          navigator.getUserMedia(
+          {
+              "audio": {
+                  "mandatory": {
+                      "googEchoCancellation": "false",
+                      "googAutoGainControl": "false",
+                      "googNoiseSuppression": "false",
+                      "googHighpassFilter": "false"
+                  },
+                  "optional": []
+              }
+          }, resolve, reject);
+      // } catch (e) {
+      //     reject(e);
+      // }
+    });
+  };
+
+  let log = (stream) => {
+    console.log(stream);
+  }
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>
