@@ -1,0 +1,71 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#container h1 {
+  text-align: center;
+}
+.kalam{
+  font-family: 'Kalam', cursive;
+}
+
+.l-baskerville{
+  font-family: 'Libre Baskerville', serif;
+}
+
+.merienda{
+  font-family: 'Merienda One', cursive;
+}
+
+.pacifico{
+  font-family: 'Pacifico', cursive;
+}
+
+.poppins{
+  font-family: 'Poppins', sans-serif;
+}
+
+.salsa{
+  font-family: 'Salsa', cursive;
+}
+
+.song{
+  font-family: 'Song Myung', serif;
+}
+
+.sriracha{
+  font-family: 'Sriracha', cursive;
+}
+
+.yeseva{
+  font-family: 'Yeseva One', cursive;
+}
+
+.domine{
+font-family: 'Domine', serif;
+}
+
+.noticia{
+  font-family: 'Noticia Text', serif;
+}
+
+.proza{
+  font-family: 'Proza Libre', sans-serif;
+}
+
+.mukta{
+  font-family: 'Mukta Vaani', sans-serif;
+}
+
+.chivo{
+  font-family: 'Chivo', sans-serif;
+}

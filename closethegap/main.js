@@ -39,6 +39,24 @@ window.onload = () => {
   const display = document.getElementsByTagName('h1')[0];
   const form = document.getElementsByTagName('form')[0];
 
+
+  var select = document.getElementById("font");
+  // var options = select.querySelector("option");
+  var optionsTwo = select.querySelectorAll("option");
+  var test = Array.from(optionsTwo);
+
+  select.addEventListener("change", function() {
+      var valeur = this.value;
+      console.log(valeur, this)
+      addingClass(display,valeur);
+      console.log(display)
+  });
+
+  function addingClass(el,name){
+    el.className = name;
+  }
+
+
   lngSelect.addEventListener('change', function(e) {
     console.log(lngSelect.value);
     display.innerHTML = assocLangues[lngSelect.value];
