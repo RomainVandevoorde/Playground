@@ -3,6 +3,14 @@ html, body {
   padding: 0;
 }
 
+form {
+  font-family: monospace;
+}
+
+form h3 {
+  font-weight: 500;
+}
+
 #container {
   width: 100vw;
   height: 100vh;
